@@ -14,17 +14,18 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Eigen3 3.3 REQUIRED)
 find_package(Franka REQUIRED)
+find_package(RBDL REQUIRED)
 
 if(NOT OMPL_INCLUDE_DIRS)
 	find_package(ompl REQUIRED)
 endif()
+
 
 set(SRC_FILES
     src/position_controller.cpp
     src/robotmodel.cpp
     src/trajectory.cpp
 )
-
 
 ################ For cmake ###########################
 
@@ -40,6 +41,9 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
     ${Franka_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIRS}
+    ${RBDL_INCLUDE_DIRS}
+    #usr/local/lib
+
 )
 
 add_library(panda_lib
@@ -57,6 +61,7 @@ PUBLIC
     Eigen3::Eigen
     Franka::Franka
     panda_lib
+    ${RBDL_LIBRARIES}
     -pthread
     -lrbdl
     -lrbdl_urdfreader

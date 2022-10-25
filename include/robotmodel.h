@@ -19,6 +19,7 @@ public:
 	virtual ~CModel();
 
     RigidBodyDynamics::Model _model;
+    //std::shared_ptr<RigidBodyDynamics::Model> model_;
 
     void update_kinematics(VectorXd & q, VectorXd & qdot); // update robot state
     void update_dynamics(); // calculate _A, _g, _b, _bg
@@ -45,6 +46,17 @@ public:
 private:
 	void Initialize();
 	void load_model(); // read URDF model
+    void load_model(const Eigen::Ref<const Eigen::Matrix<double, 7, 4> > & dh); // read custom model
+    //variables for custom model    
+    RigidBodyDynamics::Math::Vector3d com_position_[7];
+    RigidBodyDynamics::Math::Vector3d ee_position_;
+    Eigen::Vector3d joint_posision_[7];
+    Eigen::Matrix3d rot_ee_;   
+    unsigned int body_id_[7];
+    RigidBodyDynamics::Body body_[7];
+    RigidBodyDynamics::Joint joint_[7];
+    Eigen::Isometry3d transformDH(const double a, const double d, const double alpha, const double theta);
+
 	void set_robot_config();
 
     VectorXd _q, _qdot; // joint sensordata

@@ -23,13 +23,14 @@ public:
     CController();
     virtual ~CController();	
 
-    void setGoalJoint(VectorXd q_goal, VectorXd qdot_goal, VectorXd q, VectorXd qdot);
-    void setGoalEE(VectorXd x_goal_hand, VectorXd xdot_goal_hand, VectorXd q, VectorXd qdot);
+    void setGoalJoint(VectorXd q_goal, VectorXd qdot_goal);
+    void setGoalEE(VectorXd x_goal_hand, VectorXd xdot_goal_hand);
 
 
     void read(double time, VectorXd q, VectorXd qdot);
     void compute();
     VectorXd getDesiredPosition();
+    VectorXd getEEPosition();
 
     bool isFinished();
 
@@ -77,6 +78,9 @@ private:
     MatrixXd _J_bar_hands; // pseudo invere jacobian matrix
 
     VectorXd _x_hand, _xdot_hand; // End-effector
+
+    VectorXd _x_err_hand;
+    Matrix3d _R_des_hand;
 
 
 };
