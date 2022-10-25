@@ -1,4 +1,4 @@
-# panda_arm
+# FRANKA EMIKA Panda Robot
 
 > run
 ```
